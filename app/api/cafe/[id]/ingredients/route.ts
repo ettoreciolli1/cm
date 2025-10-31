@@ -6,10 +6,10 @@ import { db } from "@/.";
 import { cafes, menu_items, ingredients } from "@/app/lib/schema";
 import { eq, and, sql } from "drizzle-orm";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
         // session
-        const p = params;
+        const p = await params;
         const session = await auth.api.getSession({ headers: await headers() });
         if (!session?.user?.id) {
             return NextResponse.json({ ok: false, error: "not_authenticated" }, { status: 401 });

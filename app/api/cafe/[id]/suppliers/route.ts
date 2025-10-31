@@ -4,10 +4,10 @@ import { cafes, menu_items, ingredients, suppliers } from "@/app/lib/schema";
 import { eq } from "drizzle-orm";
 import { Supplier } from "@/app/lib/types";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id?: string }> }) {
     try {
         // await params as requested (params is already available in app router)
-        const p = params as { id?: string };
+        const p = await params;
         const cafeId = Number(p.id);
         if (!p.id || Number.isNaN(cafeId)) {
             return NextResponse.json({ error: "invalid_cafe_id" }, { status: 400 });

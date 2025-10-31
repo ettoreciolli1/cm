@@ -11,10 +11,10 @@ import { eq, and, sql } from "drizzle-orm";
  */
 export async function GET(
     req: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const p = params;
+        const p = await params;
         const session = await auth.api.getSession({ headers: await headers() });
 
         if (!session?.user?.id) {

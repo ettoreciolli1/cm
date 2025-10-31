@@ -21,10 +21,10 @@ function slugify(s: string) {
     return s.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
-export async function POST(req: Request, { params }: { params: { slug: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
     try {
         const raw = await req.json();
-        const p = params;
+        const p = await params;
 
         // Validate body
         const parsed = createIngredientSchema.safeParse(raw);

@@ -21,7 +21,7 @@ function slugify(s: string) {
     return s.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
-export async function POST(req: Request, { params }: { params: { slug: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
     try {
         const raw = await req.json();
 
@@ -39,7 +39,7 @@ export async function POST(req: Request, { params }: { params: { slug: string } 
         }
         const ownerId = session.user.id;
 
-        const slug = decodeURIComponent(params.slug ?? "");
+        const slug = decodeURIComponent((await params).slug ?? "");
         if (!slug) return NextResponse.json({ ok: false, error: "missing_slug" }, { status: 400 });
 
         // find menu item, but ensure this owner owns the cafe that owns the item

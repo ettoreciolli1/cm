@@ -3,9 +3,9 @@ import { db } from "@/."; // adjust import
 import { employees } from "@/app/lib/schema";
 import { eq } from "drizzle-orm";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const id = parseInt((params).id);
+        const id = parseInt((await params).id);
         if (isNaN(id)) return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
         const row = await db.select().from(employees).where(eq(employees.id, id)).limit(1);

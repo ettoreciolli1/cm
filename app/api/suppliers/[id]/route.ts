@@ -7,9 +7,9 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/app/lib/auth"; // your better-auth helper
 import { Supplier } from "@/app/lib/types";
 
-export async function GET(req: NextRequest, { params }: { params: { id?: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id?: string }> }) {
     try {
-        const p = params;
+        const p = await params;
         const supplierId = Number(p.id);
         if (!p.id || Number.isNaN(supplierId)) {
             return NextResponse.json({ ok: false, error: "invalid_id" }, { status: 400 });

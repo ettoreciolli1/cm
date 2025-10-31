@@ -3,9 +3,9 @@ import { db } from "@/.";
 import { ingredients, menu_items } from "@/app/lib/schema";
 import { eq } from "drizzle-orm";
 
-export async function GET(req: Request, { params }: { params: { slug: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ slug: string }> }) {
     try {
-        const slug = (params).slug;
+        const slug = (await params).slug;
         console.log("fjsdfh")
         if (!slug) {
             return NextResponse.json({ ok: false, error: "missing_slug" }, { status: 400 });
