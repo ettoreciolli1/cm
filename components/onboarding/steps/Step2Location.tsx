@@ -7,11 +7,19 @@ import { useZodForm } from "./_helpers";
 import { useOnboarding } from "../OnboardingContext";
 
 const schema = z.object({
-    address: z.string().min(3, "Enter address").optional().nullable(),
-    city: z.string().min(2, "Enter city").optional().nullable(),
-    country: z.string().min(2, "Enter country").optional().nullable(),
+    address: z.string().min(3, "Enter address").optional().optional(),
+    city: z.string().min(2, "Enter city").optional().optional(),
+    country: z.string().min(2, "Enter country").optional().optional(),
     timezone: z.string().optional().nullable(),
 });
+
+interface OnboardData {
+    address?: string;
+    city?: string;
+    country?: string;
+    timezone?: string;
+}
+
 
 type FormValues = z.infer<typeof schema>;
 
@@ -36,9 +44,18 @@ export default function Step2Location() {
     }, [data, reset]);
 
     const onSubmit = (values: FormValues) => {
-        update(values);
+        const sanitized: Partial<OnboardData> = {
+            address: values.address ?? undefined,
+            city: values.city ?? undefined,
+            country: values.country ?? undefined,
+            timezone: values.timezone ?? undefined,
+        };
+
+        update(sanitized); // Now all nulls are undefined
         setCompletedStep(1, true);
     };
+
+
 
     const { errors, isValid } = formState;
 
