@@ -84,7 +84,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id?:
     }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id?: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id?: string }> }) {
     try {
         const p = await params;
         const supplierId = Number(p.id);
