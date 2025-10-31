@@ -1,0 +1,1 @@
+ALTER TABLE "ingredients" ADD COLUMN "slug" varchar(320) NOT NULL;
