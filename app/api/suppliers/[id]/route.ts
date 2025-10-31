@@ -9,7 +9,7 @@ import { Supplier } from "@/app/lib/types";
 
 export async function GET(req: NextRequest, { params }: { params: { id?: string } }) {
     try {
-        const p = await params;
+        const p = params;
         const supplierId = Number(p.id);
         if (!p.id || Number.isNaN(supplierId)) {
             return NextResponse.json({ ok: false, error: "invalid_id" }, { status: 400 });

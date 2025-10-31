@@ -7,7 +7,7 @@ import { Supplier } from "@/app/lib/types";
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
         // await params as requested (params is already available in app router)
-        const p = await params as { id?: string };
+        const p = params as { id?: string };
         const cafeId = Number(p.id);
         if (!p.id || Number.isNaN(cafeId)) {
             return NextResponse.json({ error: "invalid_cafe_id" }, { status: 400 });

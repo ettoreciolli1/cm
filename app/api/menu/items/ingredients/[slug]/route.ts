@@ -24,7 +24,7 @@ function slugify(s: string) {
 export async function POST(req: Request, { params }: { params: { slug: string } }) {
     try {
         const raw = await req.json();
-        const p = await params;
+        const p = params;
 
         // Validate body
         const parsed = createIngredientSchema.safeParse(raw);

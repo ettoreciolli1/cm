@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     try {
-        const id = parseInt((await params).id);
+        const id = parseInt((params).id);
         if (isNaN(id)) return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
 
         const row = await db.select().from(employees).where(eq(employees.id, id)).limit(1);

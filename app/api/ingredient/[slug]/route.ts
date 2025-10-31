@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 
 export async function GET(req: Request, { params }: { params: { slug: string } }) {
     try {
-        const slug = (await params).slug;
+        const slug = (params).slug;
         console.log("fjsdfh")
         if (!slug) {
             return NextResponse.json({ ok: false, error: "missing_slug" }, { status: 400 });

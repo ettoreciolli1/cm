@@ -55,7 +55,7 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
         }
         const userId = session.user.id;
 
-        const rawSlug = (await params).slug;
+        const rawSlug = (params).slug;
         if (!rawSlug) {
             return NextResponse.json({ ok: false, error: "missing_slug" }, { status: 400 });
         }
@@ -132,7 +132,7 @@ export async function POST(req: Request, { params }: { params: { slug: string } 
         }
         const userId = session.user.id;
 
-        const rawSlug = (await params).slug;
+        const rawSlug = (params).slug;
         if (!rawSlug) {
             return NextResponse.json({ ok: false, error: "missing_slug" }, { status: 400 });
         }

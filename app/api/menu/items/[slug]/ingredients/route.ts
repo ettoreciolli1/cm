@@ -48,6 +48,7 @@ export async function POST(req: Request, { params }: { params: { slug: string } 
             .select({
                 id: menu_items.id,
                 cafe_id: menu_items.cafe_id,
+                slug: menu_items.slug
             })
             .from(menu_items)
             .where(eq(menu_items.slug, slug))
@@ -83,6 +84,7 @@ export async function POST(req: Request, { params }: { params: { slug: string } 
                 cost_cents,
                 allergen: payload.allergen ?? false,
                 notes: payload.notes ?? null,
+                menu_item_slug: menuItem.slug
             })
             .returning({
                 id: ingredients.id,

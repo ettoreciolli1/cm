@@ -9,7 +9,7 @@ import { eq, and, sql } from "drizzle-orm";
 export async function GET(req: Request, { params }: { params: { id: string } }) {
     try {
         // session
-        const p = await params;
+        const p = params;
         const session = await auth.api.getSession({ headers: await headers() });
         if (!session?.user?.id) {
             return NextResponse.json({ ok: false, error: "not_authenticated" }, { status: 401 });
