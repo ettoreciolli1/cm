@@ -66,7 +66,10 @@ function OnboardingContent() {
                             <button
                                 onClick={() => {
                                     // simply trigger blur validations already wired per step, then next button from shell will move forward
-                                    document.activeElement?.blur();
+                                    const activeEl = document.activeElement;
+                                    if (activeEl instanceof HTMLElement) {
+                                        activeEl.blur();
+                                    }
                                 }}
                                 className="px-4 py-2 bg-indigo-600 text-white rounded"
                             >
