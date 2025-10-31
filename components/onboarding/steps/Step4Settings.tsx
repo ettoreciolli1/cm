@@ -7,7 +7,7 @@ import { useZodForm } from "./_helpers";
 import { useOnboarding } from "../OnboardingContext";
 
 const schema = z.object({
-    opening_hours: z.string().min(3).optional().nullable(),
+    opening_hours: z.string().min(3).optional(),
     pos_enabled: z.boolean().optional().default(true),
 });
 
@@ -30,6 +30,8 @@ export default function Step4Settings() {
     }, [data, reset]);
 
     const onSubmit = (values: FormValues) => {
+
+
         update(values);
         setCompletedStep(3, true);
     };
