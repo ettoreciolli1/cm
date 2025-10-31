@@ -124,7 +124,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ slug: st
     }
 }
 
-export async function POST(req: Request, { params }: { params: { slug: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
     try {
         const session = await auth.api.getSession({ headers: await headers() });
         if (!session?.user?.id) {
@@ -132,7 +132,7 @@ export async function POST(req: Request, { params }: { params: { slug: string } 
         }
         const userId = session.user.id;
 
-        const rawSlug = (params).slug;
+        const rawSlug = (await params).slug;
         if (!rawSlug) {
             return NextResponse.json({ ok: false, error: "missing_slug" }, { status: 400 });
         }
